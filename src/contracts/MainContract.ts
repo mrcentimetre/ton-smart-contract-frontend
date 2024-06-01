@@ -1,4 +1,13 @@
-import { Address, beginCell, Cell, Contract, contractAddress, ContractProvider, Sender, SendMode } from "@ton/core";
+import {
+  Address,
+  beginCell,
+  Cell,
+  Contract,
+  contractAddress,
+  ContractProvider,
+  Sender,
+  SendMode,
+} from "@ton/core";
 
 export type MainContractConfig = {
   number: number;
@@ -36,18 +45,6 @@ export class MainContract implements Contract {
     await provider.internal(via, {
       value,
       sendMode: SendMode.PAY_GAS_SEPARATELY,
-      body: beginCell().storeUint(2, 32).endCell(),
-    });
-}
-
-  async sendInternalMessage(
-    provider: ContractProvider,
-    sender: Sender,
-    value: bigint
-  ) {
-    await provider.internal(sender, {
-      value,
-      sendMode: SendMode.PAY_GAS_SEPARATELY,
       body: beginCell().endCell(),
     });
   }
@@ -58,10 +55,9 @@ export class MainContract implements Contract {
     value: bigint,
     increment_by: number
   ) {
-    
     const msg_body = beginCell()
-      .storeUint(1, 32) // OP code
-      .storeUint(increment_by, 32) // increment_by value
+      .storeUint(1, 32)
+      .storeUint(increment_by, 32)
       .endCell();
 
     await provider.internal(sender, {
@@ -117,13 +113,14 @@ export class MainContract implements Contract {
 
   async getData(provider: ContractProvider) {
     const { stack } = await provider.get("get_contract_storage_data", []);
+    console.log(stack);
     return {
       number: stack.readNumber(),
       recent_sender: stack.readAddress(),
       owner_address: stack.readAddress(),
     };
   }
-  
+
   async getBalance(provider: ContractProvider) {
     const { stack } = await provider.get("balance", []);
     return {

@@ -10,7 +10,7 @@ export function useMainContract() {
   const client = useTonClient();
   const { sender } = useTonConnect();
 
-  const sleep = (time: number) => 
+  const sleep = (time: number) =>
     new Promise((resolve) => setTimeout(resolve, time));
 
   const [contractData, setContractData] = useState<null | {
@@ -26,7 +26,7 @@ export function useMainContract() {
     const contract = new MainContract(
       Address.parse("EQCF3S7QHZOytuSlfp1wSCGewxCTC5L3aOc1XwapZxm1nXpq") // replace with your address from tutorial 2 step 8
     );
-    return client.open(ontract) as OpenedContract<MainContract>;
+    return client.open(contract) as OpenedContract<MainContract>;
   }, [client]);
 
   useEffect(() => {
@@ -51,8 +51,18 @@ export function useMainContract() {
     contract_address: mainContract?.address.toString(),
     contract_balance: balance,
     ...contractData,
-    sendIncrement: () => {
-          return mainContract?.sendIncrement(sender, toNano(0.05), 3);
-        },
+    sendIncrement: async () => {
+      return mainContract?.sendIncrement(sender, toNano("0.05"), 5);
+    },
+    sendDeposit: async () => {
+      return mainContract?.sendDeposit(sender, toNano("1"));
+    },
+    sendWithdrawalRequest: async () => {
+      return mainContract?.sendWithdrawalRequest(
+        sender,
+        toNano("0.05"),
+        toNano("0.7")
+      );
+    },
   };
 }

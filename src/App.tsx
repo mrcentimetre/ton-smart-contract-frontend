@@ -22,15 +22,17 @@ function App() {
   };
 
   return (
-    <div>
-      <div>
+    <div className='App'>
+      <div className='Container'>
         <TonConnectButton />
-      </div>
       <div>
         <div className='Card'>
           <b>{WebApp.platform}</b>
           <b>Our contract Address</b>
           <div className='Hint'>{contract_address?.slice(0, 30) + "..."}</div>
+        </div>
+
+        <div className='Card'>
           <b>Our contract Balance</b>
           {contract_balance && (
             <div className='Hint'>{fromNano(contract_balance)}</div>
@@ -43,6 +45,7 @@ function App() {
         </div>
 
         <a
+          className={`Button ${connected ? 'Active' : 'Disabled'}`}
           onClick={() => {
             showAlert();
           }}
@@ -54,6 +57,7 @@ function App() {
 
         {connected && (
           <a
+          className={`Button ${connected ? 'Active' : 'Disabled'}`}
             onClick={() => {
               sendIncrement();
             }}
@@ -66,6 +70,7 @@ function App() {
 
         {connected && (
           <a
+          className={`Button ${connected ? 'Active' : 'Disabled'}`}
             onClick={() => {
               sendDeposit();
             }}
@@ -78,6 +83,7 @@ function App() {
 
         {connected && (
           <a
+          className={`Button ${connected ? 'Active' : 'Disabled'}`}
             onClick={() => {
               sendWithdrawalRequest();
             }}
@@ -86,6 +92,7 @@ function App() {
           </a>
         )}
       </div>
+    </div>
     </div>
   );
 }

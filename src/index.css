@@ -1,17 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --tg-theme-bg-color: #efeff3;
-  --tg-theme-button-color: #63d0f9;
-  --tg-theme-button-text-color: black;
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
 .App {
-  height: 100vh;
-  background-color: var(--tg-theme-bg-color);
+  min-height: 100vh;
   color: var(--tg-theme-text-color);
 }
 
 .Container {
-  padding: 2rem;
+  padding: 1rem;
   max-width: 500px;
   display: flex;
   flex-direction: column;
@@ -41,10 +69,6 @@
   filter: brightness(105%);
 }
 
-.Hint {
-  color: var(--tg-theme-hint-color);
-}
-
 .Card {
   width: 100%;
   padding: 10px 20px;
@@ -53,13 +77,6 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --tg-theme-bg-color: #131415;
-    --tg-theme-text-color: #fff;
-    --tg-theme-button-color: #32a6fb;
-    --tg-theme-button-text-color: #fff;
-  }
-
   .Card {
     background-color: var(--tg-theme-bg-color);
     filter: brightness(165%);

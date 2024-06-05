@@ -1,4 +1,5 @@
 import "./App.css";
+import { useState } from 'react';
 import { TonConnectButton } from "@tonconnect/ui-react";
 import { useMainContract } from "./hooks/useMainContract";
 import { useTonConnect } from "./hooks/useTonConnect";
@@ -15,6 +16,19 @@ export default function App() {
     sendWithdrawalRequest,
   } = useMainContract();
 
+  const contractAddress = contract_address;
+  
+
+  const [copySuccess, setCopySuccess] = useState('');
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(contractAddress ?? '');
+      setCopySuccess('Copied!');
+    } catch (err) {
+      setCopySuccess('Failed to copy text');
+    }
+  };
+
   const { connected } = useTonConnect();
 
   const showAlert = () => {
@@ -23,15 +37,14 @@ export default function App() {
 
   // Preview of Website
   return (
-    <div className="App font-['Poppins'] bg-gradient-to-r from-violet-600 to-indigo-600">
-      <div className='Container'>
-      {/* <img src={just} alt="Logo" /> */}
-      <div className="text-2xl font-black">CentiXDoge</div>
-      <img width="50%" height="auto" src="dog.png"/>
+    <div className="min-h-full flex flex-col items-center justify-center font-['Poppins'] bg-gradient-to-r from-violet-600 to-indigo-600">
+      <div className='p-5 max-w-[500px] flex flex-col gap-[30px] items-center mx-auto text-center'>
+        <div className="text-2xl font-black">CentiXDoge</div>
+        <img width="50%" height="auto" src="dog.png" alt="Logo"/>
       </div>
       <div>
-      <div className='Card'>
-          <b className="text-gray-500">Account Balance</b>
+      <div className='flex items-center justify-center flex-col w-full p-2.5 px-5 rounded-lg bg-white'>
+          <b className=" text-gray-500">Account Balance</b>
           {contract_balance && (
             <div className="text-4xl m-3 font-bold">{fromNano(contract_balance)}</div>
           )}
@@ -54,6 +67,12 @@ export default function App() {
           <b>{WebApp.platform}</b>
           <b>Our contract Address</b>
           <div className="text-red-900">{contract_address?.slice(0, 30) + "..."}</div>
+        </div>
+        <div>
+          <button onClick={copyToClipboard}>
+          {contract_address?.slice(0, 30) + "..."}
+          </button>
+          {copySuccess && <div style={{ color: 'green' }}>{copySuccess}</div>}
         </div>
         <TonConnectButton />
         

@@ -61,11 +61,11 @@ export default function App() {
           </div>
         </div>
         <div className='w-full h-[120px] bg-blue-100 rounded-[30px] p-[5px] my-[10px]'>
-        <div className="flex justify-center">
-        <div className="mr-[40px]">
+        <div className="flex justify-center items-center my-[10px]">
+        <div className="mr-[60px]">
         {connected && (
           <a
-          className={`Button ${connected ? 'Active' : 'Disabled'}`}
+          className={`${connected ? 'Active' : 'Disabled'}`}
             onClick={() => {
               sendDeposit();
             }}
@@ -77,7 +77,7 @@ export default function App() {
         <div className="ml-[50px]">
         {connected && (
           <a
-          className={`Button ${connected ? 'Active' : 'Disabled'}`}
+          className={`${connected ? 'Active' : 'Disabled'}`}
             onClick={() => {
               sendWithdrawalRequest();
             }}
@@ -92,65 +92,33 @@ export default function App() {
         <div className="ml-[90px] pr-2"> WITHDRAW </div>
         </div>
         </div>
-        <div className="text-red-900 text-xl">
-          <b>{WebApp.platform}</b>
+
+        <div className='w-full mb-5 p-2.5 px-5 rounded-xl bg-white dark:bg-[var(--tg-theme-bg-color)] dark:filter-brightness-[165%]'>
+          <b>Counter Value</b>: {counter_value ?? "Loading..."}
+          <div>
+          <b>Device</b>: {WebApp.platform}
         </div>
-        
-        
-        
-
-        <div className='Card'>
-          <b>Counter Value</b>
-          <div>{counter_value ?? "Loading..."}</div>
-        </div>
-
-        <a
-          className={`Button ${connected ? 'Active' : 'Disabled'}`}
-          onClick={() => {
-            showAlert();
-          }}
-        >
-          Show Alert
-        </a>
-
-        <br />
-
+        <div className="flex flex-col justify-center items-center">
         {connected && (
           <a
-          className={`Button ${connected ? 'Active' : 'Disabled'}`}
+          className={`flex justify-center items-center my-3 rounded-[50px] w-4/5 h-[40px] text-center text-white font-semibold bg-[#0098EA] ${connected ? 'Active' : 'Disabled'}`}
             onClick={() => {
               sendIncrement();
             }}
           >
-            Increment by 5
-          </a>
+        Increment Counter Value
+        </a>
         )}
-
-        <br />
-
-        {connected && (
-          <a
-          className={`Button ${connected ? 'Active' : 'Disabled'}`}
-            onClick={() => {
-              sendDeposit();
-            }}
-          >
-            Request deposit of 1 TON
-          </a>
-        )}
-
-        <br />
-
-        {connected && (
-          <a
-          className={`Button ${connected ? 'Active' : 'Disabled'}`}
-            onClick={() => {
-              sendWithdrawalRequest();
-            }}
-          >
-            Request 0.7 TON withdrawal
-          </a>
-        )}
+        <a
+          className={`flex justify-center items-center my-3 rounded-[50px] w-4/5 h-[40px] text-center text-white font-semibold bg-[#0098EA] ${connected ? 'Active' : 'Disabled'}`}
+          onClick={() => {
+            showAlert();
+          }}
+        >
+        Say Hi 👋
+        </a>
+        </div>
+        </div>
       </div>
     </div>
     
